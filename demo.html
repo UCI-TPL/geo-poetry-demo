@@ -1,0 +1,46 @@
+<!doctype html>
+
+<html lang="en" ng-app="GeoPoetryApp">
+<head>
+	<meta charset="utf-8">
+
+	<title>Geo-Poetry Demo</title>
+	<meta name="description" content="The Geo-Poetry E-Lit Project">
+
+	<script type="text/javascript" src="angular.min.js"></script>
+	<script type="text/javascript" src="demo.js"></script>
+</head>
+
+<body ng-controller="GeoPoetryController">
+
+	<h1 id="form-header">Options</h1>
+	<div id="form-wrapper">
+		<form id="form">
+			<div id="form-wrapper-genre">
+				<label for="form-input-genre">Music Genre:</label>
+				<select id="form-input-genre">
+					<option>-</option> <!-- unselected option -->
+					<option ng-repeat="genre in genres">{{genre}}</option>
+				</select>
+			</div>
+			<div id="form-wrapper-energy">
+				<label for="form-input-energy">Song Energy:</label>
+				<input type="text" id="form-input-energy" value="{{energy | number:1}}"></input>
+			</div>
+			<div id="form-wrapper-submit">
+				<button id="form-input-submit">Generate Poetry!</button>
+			</div>
+		</form>
+	</div>
+
+	<hr />
+
+	<h1 id="results-header">Results</h1>
+	<div id="results-wrapper">
+		<div id="results-poetry">
+			<span ng-repeat="line in poetry_lines" class="poetry-line">{{line}}<br /></span>
+		</div>
+		<!-- TODO Embed Spotify -->
+	</div>
+</body>
+</html>
