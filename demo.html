@@ -8,6 +8,7 @@
 	<meta name="description" content="The Geo-Poetry E-Lit Project">
 
 	<script type="text/javascript" src="angular.min.js"></script>
+	<script type="text/javascript" src="fcsaNumber.js"></script>
 	<script type="text/javascript" src="demo.js"></script>
 </head>
 
@@ -26,7 +27,7 @@
 			</div>
 			<div id="form-wrapper-energy">
 				<label for="form-input-energy">Song Energy:</label>
-				<input type="number" id="form-input-energy" ng-model="energy"></input>
+				<input type="text" id="form-input-energy" ng-model="energy" fcsa-number="{ min: 0, max: 1 }"></input>
 			</div>
 			<div id="form-wrapper-submit">
 				<button id="form-input-submit">Generate Poetry!</button>

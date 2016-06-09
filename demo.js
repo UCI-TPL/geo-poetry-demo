@@ -1,7 +1,7 @@
 var DEFAULT_ENERGY = 0.5;
 var SERVER_BASE_URL = "http://127.0.0.1:5000";
 
-var app = angular.module('GeoPoetryApp', []);
+var app = angular.module('GeoPoetryApp', ['fcsa-number']);
 
 app.controller('GeoPoetryController', ['$scope', '$http', function GeoPoetryController($scope, $http) {
 	$scope.genres = [];
