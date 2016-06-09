@@ -9,15 +9,18 @@ app.controller('GeoPoetryController', ['$scope', '$http', function GeoPoetryCont
 	$scope.energy = 0.5;
 	$scope.poetry_lines = ["Here is some poetry.", "I hope you like it."];
 
-	$http.get(SERVER_BASE_URL+"/get-genres").then(
-		function successCallback(response) {
-			$scope.genres = response.data['genres'];
-		},
-		function errorCallback(response) {
-			// TODO
-			console.log(response);
-		}
-	)
+	$scope.refreshGenreList = function() {
+		$http.get(SERVER_BASE_URL+"/get-genres").then(
+			function successCallback(response) {
+				$scope.genres = response.data['genres'];
+			},
+			function errorCallback(response) {
+				// TODO
+				console.log(response);
+			}
+		)
+	}
+	$scope.refreshGenreList();
 
 	$scope.submitForm = function() {
 		// TODO

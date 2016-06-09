@@ -22,6 +22,7 @@
 					<option>-</option> <!-- unselected option -->
 					<option ng-repeat="genre in genres">{{genre}}</option>
 				</select>
+				<button id="form-input-reloadgenres" ng-click="refreshGenreList()">Refresh List</button>
 			</div>
 			<div id="form-wrapper-energy">
 				<label for="form-input-energy">Song Energy:</label>
