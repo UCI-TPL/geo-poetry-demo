@@ -18,14 +18,14 @@
 		<form id="form">
 			<div id="form-wrapper-genre">
 				<label for="form-input-genre">Music Genre:</label>
-				<select id="form-input-genre">
+				<select id="form-input-genre" ng-model="selected_genre">
 					<option>-</option> <!-- unselected option -->
 					<option ng-repeat="genre in genres">{{genre}}</option>
 				</select>
 			</div>
 			<div id="form-wrapper-energy">
 				<label for="form-input-energy">Song Energy:</label>
-				<input type="text" id="form-input-energy" value="{{energy | number:1}}"></input>
+				<input type="number" id="form-input-energy" ng-model="energy"></input>
 			</div>
 			<div id="form-wrapper-submit">
 				<button id="form-input-submit">Generate Poetry!</button>
