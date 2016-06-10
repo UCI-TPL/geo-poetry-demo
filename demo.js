@@ -104,7 +104,7 @@ function GeoPoetryController($scope, $http, $timeout, $filter, $sce) {
 						$scope.spotify_embed_url = $sce.trustAsResourceUrl('https://embed.spotify.com/?uri='
 							 + spotify_uri + '&amp;view=coverart');
 
-						if ( $scope.use_energy_function ) {
+						if ( $scope.use_energy_function == "Y" ) {
 							$scope.number_of_requests += 1;
 							$scope.energy = getNextEnergy();
 							if ( $scope.number_of_requests == $scope.energy_wave_period ) {
