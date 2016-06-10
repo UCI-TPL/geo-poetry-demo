@@ -19,11 +19,14 @@ function GeoPoetryController($scope, $http, $timeout, $filter, $sce) {
 		}
 	}
 
-	$scope.use_browser_gps = "1";
+	$scope.use_browser_gps = "Y";
 	$scope.radius_units = "km";
 	$scope.genres = [];
 	$scope.selected_genre = "-";
 	$scope.energy = 0.5;
+	$scope.use_energy_function = "Y";
+	$scope.energy_wave_period = 4;
+	$scope.number_of_requests = 0;
 	$scope.poetry_lines = ["Here is some poetry.", "I hope you like it."];
 	$scope.poetry_loading = false;
 
@@ -52,6 +55,20 @@ function GeoPoetryController($scope, $http, $timeout, $filter, $sce) {
 		});
 	}
 	$scope.refreshGPS();
+
+	function getNextEnergy() {
+		radians_per_request = (Math.PI*2) / $scope.energy_wave_period; // period -> radians (2pi per period)
+		radians_offset = radians_per_request * $scope.number_of_requests; // offset by number of requests
+		sine_value = Math.sin(radians_offset); // compute sine
+		energy_value = (sine_value + 1) / 2; // sine range (-1 to 1) -> energy range (0 to 1)
+		return energy_value;
+	}
+	$scope.resetEnergyFunction = function() {
+		if ( $scope.use_energy_function == "Y" ) {
+			$scope.number_of_requests = 0;
+			$scope.energy = 0.5;
+		}
+	}
 
 	$scope.submitForm = function() {
 		navigator.geolocation.getCurrentPosition(function success(position) {
@@ -84,7 +101,18 @@ function GeoPoetryController($scope, $http, $timeout, $filter, $sce) {
 						$scope.poetry_lines = result['poetry'].split("\n");
 						$scope.poetry_loading = false;
 						spotify_uri = result['track'];
-						$scope.spotify_embed_url = $sce.trustAsResourceUrl('https://embed.spotify.com/?uri=' + spotify_uri + '&amp;view=coverart');
+						$scope.spotify_embed_url = $sce.trustAsResourceUrl('https://embed.spotify.com/?uri='
+							 + spotify_uri + '&amp;view=coverart');
+
+						if ( $scope.use_energy_function ) {
+							$scope.number_of_requests += 1;
+							$scope.energy = getNextEnergy();
+							if ( $scope.number_of_requests == $scope.energy_wave_period ) {
+								// reset number of requests to zero when period reached
+								$scope.number_of_requests = 0;
+								$scope.energy = 0.5;
+							}
+						}
 					});
 				}, 0);
 			}, function errorCallback(response) {

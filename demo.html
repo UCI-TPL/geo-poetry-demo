@@ -25,14 +25,14 @@
 		<form>
 			<div>
 				<label>Location:</label>
-				<input type="radio" ng-model="use_browser_gps" value="1" ng-change="refreshGPS()">Use Current Location</input>
-				<input type="radio" ng-model="use_browser_gps" value="0">Manually Enter</input>
+				<input type="radio" ng-model="use_browser_gps" value="Y" ng-change="refreshGPS()">Use Current Location</input>
+				<input type="radio" ng-model="use_browser_gps" value="N">Manually Enter</input>
 				<label>Latitude</label>
 				<input type="text" fcsa-number="{ min: -90, max: 90 }"
-					ng-model="latitude" ng-disabled="use_browser_gps == '1'"></input>
+					ng-model="latitude" ng-disabled="use_browser_gps == 'Y'"></input>
 				<label>Longitude</label>
 				<input type="text" fcsa-number="{ min: -180, max: 180 }"
-					ng-model="longitude" ng-disabled="use_browser_gps == '1'"></input>
+					ng-model="longitude" ng-disabled="use_browser_gps == 'Y'"></input>
 				<label>Radius</label>
 				<input type="text" fcsa-number="{ min: 0 }" ng-model="radius"></input>
 				<input type="radio" ng-model="radius_units" value="km">km</input>
@@ -47,7 +47,17 @@
 			</div>
 			<divu>
 				<label>Song Energy:</label>
-				<input type="text" ng-model="energy" fcsa-number="{ min: 0, max: 1 }"></input>
+				<input type="radio" ng-model="use_energy_function" value="Y" ng-change="resetEnergyFunction()">
+					Follow Sine Wave</input>
+				<span ng-show="use_energy_function == 'Y'">
+					<label>Period (no. of requests)</label>
+					<input type="text" ng-model="energy_wave_period" fcsa-number="{ min: 1, maxDigits: 0 }"
+						ng-change="resetEnergyFunction()"></input>
+				</span>
+				<input type="radio" ng-model="use_energy_function" value="N">Manually Enter</input>
+				<span ng-show="use_energy_function == 'N'">
+					<input type="text" ng-model="energy" fcsa-number="{ min: 0, max: 1 }"></input>
+				</span>
 			</div>
 			<div>
 				<button ng-click="submitForm()">Generate Poetry!</button>
