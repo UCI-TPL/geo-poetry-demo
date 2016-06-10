@@ -14,9 +14,30 @@
 
 <body ng-controller="GeoPoetryController">
 
+	<div id="error-banner" ng-show="error_message">
+		<span id="error-banner warning">ERROR:&nbsp;</span>
+		<span id="error-banner-message">{{error_message}}</span>
+		<button id="error-banner-close" ng-click="error_message = ''">close</button><!-- TODO Icons -->
+	</div>
+
 	<h1 id="form-header">Options</h1>
 	<div id="form-wrapper">
 		<form id="form">
+			<div id="form-wrapper-location">
+				<label>Location:</label>
+				<input type="radio" ng-model="use_browser_gps" value="1"
+					ng-change="refreshGPS()">Use Current Location</input>
+				<input type="radio" ng-model="use_browser_gps" value="0">Manually Enter</input>
+				<label for="form-input-latitude">Latitude</label>
+				<input id="form-input-latitude" type="text" fcsa-number="{ min: -90, max: 90 }"
+					ng-model="latitude" ng-disabled="use_browser_gps == '1'"></input>
+				<label for="form-input-longitude">Longitude</label>
+				<input id="form-input-latitude" type="text" fcsa-number="{ min: -180, max: 180 }"
+					ng-model="longitude" ng-disabled="use_browser_gps == '1'"></input>
+				<label for="form-input-radius">Radius</label>
+				<input type="text" fcsa-number="{ min: 0 }" ng-model="radius"></input>
+				<input type="radio" ng-model="radius_units" value="km">km</input>
+				<input type="radio" ng-model="radius_units" value="mi">mi</input>
 			<div id="form-wrapper-genre">
 				<label for="form-input-genre">Music Genre:</label>
 				<select id="form-input-genre" ng-model="selected_genre">
