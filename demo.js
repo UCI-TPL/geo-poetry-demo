@@ -3,8 +3,8 @@ var SERVER_BASE_URL = "http://localhost:5000";
 
 var app = angular.module('GeoPoetryApp', ['fcsa-number']);
 
-app.controller('GeoPoetryController', ['$scope', '$http', '$timeout', '$filter', 
-function GeoPoetryController($scope, $http, $timeout, $filter) {
+app.controller('GeoPoetryController', ['$scope', '$http', '$timeout', '$filter', '$sce',
+function GeoPoetryController($scope, $http, $timeout, $filter, $sce) {
 	function logError(message, dataDictionary) {
 		if ( console ) {
 			logText = message + "\n";
@@ -83,7 +83,8 @@ function GeoPoetryController($scope, $http, $timeout, $filter) {
 					$scope.$apply(function() {
 						$scope.poetry_lines = result['poetry'].split("\n");
 						$scope.poetry_loading = false;
-						// TODO Spotify
+						spotify_uri = result['track'];
+						$scope.spotify_embed_url = $sce.trustAsResourceUrl('https://embed.spotify.com/?uri=' + spotify_uri + '&amp;view=coverart');
 					});
 				}, 0);
 			}, function errorCallback(response) {

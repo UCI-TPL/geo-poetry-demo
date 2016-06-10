@@ -58,12 +58,14 @@
 
 	<hr />
 
-	<h1u>Results</h1>
+	<h1>Results</h1>
 	<divu>
-		<divu>
+		<div>
 			<span ng-repeat="line in poetry_lines" class="poetry-line">{{line}}<br /></span>
 		</div>
-		<!-- TODO Embed Spotify -->
+		<div ng-if="spotify_embed_url">
+			<iframe ng-src="{{spotify_embed_url}}" frameborder="0" allowtransparency="true"></iframe>
+		</div>
 	</div>
 </body>
 </html>
