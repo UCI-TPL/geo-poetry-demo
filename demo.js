@@ -1,29 +1,31 @@
 var DEFAULT_ENERGY = 0.5;
-var SERVER_BASE_URL = "http://127.0.0.1:5000";
+var SERVER_BASE_URL = "http://localhost:5000";
 
 var app = angular.module('GeoPoetryApp', ['fcsa-number']);
 
-function logError(message, dataDictionary) {
-	if ( console ) {
-		logText = message + "\n";
-		if ( dataDictionary ) {
-			for (var key in dataDictionary) {
-				if ( dataDictionary.hasOwnProperty(key) ) {
-					logText += key + ": " + dataDictionary[key] + "\n";
+app.controller('GeoPoetryController', ['$scope', '$http', '$timeout', '$filter', 
+function GeoPoetryController($scope, $http, $timeout, $filter) {
+	function logError(message, dataDictionary) {
+		if ( console ) {
+			logText = message + "\n";
+			if ( dataDictionary ) {
+				for (var key in dataDictionary) {
+					if ( dataDictionary.hasOwnProperty(key) ) {
+						logText += key + ": " + $filter('json')(dataDictionary[key]) + "\n";
+					}
 				}
 			}
+			console.log(logText);
 		}
-		console.log(logText);
 	}
-}
 
-app.controller('GeoPoetryController', ['$scope', '$http', function GeoPoetryController($scope, $http) {
 	$scope.use_browser_gps = "1";
 	$scope.radius_units = "km";
 	$scope.genres = [];
 	$scope.selected_genre = "-";
 	$scope.energy = 0.5;
 	$scope.poetry_lines = ["Here is some poetry.", "I hope you like it."];
+	$scope.poetry_loading = false;
 
 	$scope.refreshGenreList = function() {
 		$http.get(SERVER_BASE_URL+"/get-genres").then(function successCallback(response) {
@@ -45,8 +47,8 @@ app.controller('GeoPoetryController', ['$scope', '$http', function GeoPoetryCont
 		}, function error() {
 			$scope.$apply(function() {
 				$scope.error_message = "Could not get current location from the browser.";
+				logError($scope.error_message);
 			});
-			logError($scope.error_message);
 		});
 	}
 	$scope.refreshGPS();
@@ -56,6 +58,7 @@ app.controller('GeoPoetryController', ['$scope', '$http', function GeoPoetryCont
 			$scope.$apply(function() {
 				$scope.latitude = position.coords.latitude;
 				$scope.longitude = position.coords.longitude;
+				$scope.poetry_loading = true;
 			});
 
 			data = {
@@ -69,12 +72,34 @@ app.controller('GeoPoetryController', ['$scope', '$http', function GeoPoetryCont
 				data['radius'] = $scope.radius;
 			if ( $scope.radius_units == 'mi' )
 				data['imperial_units'] = true;
-			//TODO Send to backend
+			
+			console.log("Sending to server:"); //DEBUG
+			console.log(data); // DEBUG
+			$http.post(SERVER_BASE_URL+"/geo-poetry", data).then(function successCallback(response) {
+				result = response.data;
+				console.log("Server responded:"); // DEBUG
+				console.log(result);
+				$timeout(function(){ // Prevent synchronous handling
+					$scope.$apply(function() {
+						$scope.poetry_lines = result['poetry'].split("\n");
+						$scope.poetry_loading = false;
+						// TODO Spotify
+					});
+				}, 0);
+			}, function errorCallback(response) {
+				$timeout(function(){ // Prevent synchronous handling
+					$scope.$apply(function(){
+						$scope.poetry_loading = false;
+						$scope.error_message = "Fetching of poetry failed.";
+						logError($scope.error_message, {response: response});
+					});
+				}, 0);
+			});
 		}, function error() {
 			$scope.$apply(function() {
 				$scope.error_message = "Could not get current location from the browser.";
+				logError($scope.error_message);
 			});
-			logError($scope.error_message);
 		});
 	};
 }]);

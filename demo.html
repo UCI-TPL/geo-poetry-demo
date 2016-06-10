@@ -51,7 +51,8 @@
 				<input type="text" id="form-input-energy" ng-model="energy" fcsa-number="{ min: 0, max: 1 }"></input>
 			</div>
 			<div id="form-wrapper-submit">
-				<button id="form-input-submit">Generate Poetry!</button>
+				<button id="form-input-submit" ng-click="submitForm()">Generate Poetry!</button>
+				<span ng-show="poetry_loading">Loading...</span>
 			</div>
 		</form>
 	</div>
