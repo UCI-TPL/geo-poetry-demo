@@ -27,8 +27,9 @@ function GeoPoetryController($scope, $http, $timeout, $filter, $sce) {
 	$scope.use_energy_function = "Y";
 	$scope.energy_wave_period = 4;
 	$scope.number_of_requests = 0;
-	$scope.poetry_lines = ["Here is some poetry.", "I hope you like it."];
+	$scope.poetry_lines = [];
 	$scope.poetry_loading = false;
+	$scope.valence = '';
 
 	function validationErrorDisplayer(message) {
 		function displayValidationError(newVal, oldVal) {
@@ -117,6 +118,7 @@ function GeoPoetryController($scope, $http, $timeout, $filter, $sce) {
 						spotify_uri = result['track'];
 						$scope.spotify_embed_url = $sce.trustAsResourceUrl('https://embed.spotify.com/?uri='
 							 + spotify_uri + '&amp;view=coverart');
+						$scope.valence = result['sentiment'];
 
 						if ( $scope.use_energy_function == "Y" ) {
 							$scope.number_of_requests += 1;
