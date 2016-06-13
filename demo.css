@@ -1,0 +1,56 @@
+h1 {
+	text-transform: uppercase;
+	text-decoration: underline;
+}
+
+.input-row {
+	margin: 20px;
+}
+
+.major-label {
+	font-weight: bold;
+	font-size: 1.5em;
+}
+.minor-label {
+	font-weight: bold;
+}
+
+.input-row-section {
+	border-style: solid;
+	border-width: 1px;
+	padding: 5px;
+}
+.input-row-section-left {
+	border-right-width: 2px;
+	border-top-left-radius: 0.5em;
+	border-bottom-left-radius: 0.5em;
+}
+.input-row-section-right {
+	border-left-width: 2px;
+	border-top-right-radius: 0.5em;
+	border-bottom-right-radius: 0.5em;
+}
+
+input {
+	padding: 3px;
+}
+select {
+	padding: 3px;
+}
+
+button {
+	padding: 5px;
+	font-weight: bold;
+}
+
+#generate-button {
+	padding: 10px;
+	font-size: 1.3em;
+}
+#loading-message {
+	font-size: 1.3em;
+	font-weight: bold;
+	font-style: italic;
+	padding-left: 20px;
+	color: DarkGreen;
+}
