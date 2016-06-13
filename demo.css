@@ -45,6 +45,9 @@ input {
 select {
 	padding: 3px;
 }
+input.ng-invalid {
+	background-color: LightCoral;
+}
 
 button {
 	padding: 5px;

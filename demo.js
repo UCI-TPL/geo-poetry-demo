@@ -30,6 +30,20 @@ function GeoPoetryController($scope, $http, $timeout, $filter, $sce) {
 	$scope.poetry_lines = ["Here is some poetry.", "I hope you like it."];
 	$scope.poetry_loading = false;
 
+	function validationErrorDisplayer(message) {
+		function displayValidationError(newVal, oldVal) {
+			if ( (oldVal !== newVal) && (newVal === false) ) {
+				$scope.error_message = message;
+			}
+		}
+		return displayValidationError;
+	}
+	$scope.$watch('inputForm.lat.$valid', validationErrorDisplayer("Latitude must be a decimal number between -90 and 90."));
+	$scope.$watch('inputForm.long.$valid', validationErrorDisplayer("Longitude must be a decimal number between -180 and 180."));
+	$scope.$watch('inputForm.radius.$valid', validationErrorDisplayer("Radius must be a positive number."));
+	$scope.$watch('inputForm.period.$valid', validationErrorDisplayer("Period must be a positive whole number."));
+	$scope.$watch('inputForm.energy.$valid', validationErrorDisplayer("Energy must be a decimal between 0 and 1."));
+
 	$scope.refreshGenreList = function() {
 		$http.get(SERVER_BASE_URL+"/get-genres").then(function successCallback(response) {
 			$scope.genres = response.data['genres'];

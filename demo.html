@@ -25,7 +25,7 @@
 <div id="page-wrapper">
 	<h1>Options</h1>
 	<div>
-		<form>
+		<form name="inputForm">
 			<div class="input-row">
 				<label class="major-label">Location:</label>
 				<span class="input-row-section input-row-section-left">
@@ -34,14 +34,14 @@
 				<span class="input-row-section input-row-section-right">
 					<input type="radio" ng-model="use_browser_gps" value="N">Manually Enter</input>
 					<label class="minor-label">Latitude</label>
-					<input type="text" fcsa-number="{ min: -90, max: 90 }"
+					<input type="text" name="lat" fcsa-number="{ min: -90, max: 90 }"
 						ng-model="latitude" ng-disabled="use_browser_gps == 'Y'"></input>
 					<label class="minor-label">Longitude</label>
-					<input type="text" fcsa-number="{ min: -180, max: 180 }"
+					<input type="text" name="long" fcsa-number="{ min: -180, max: 180 }"
 						ng-model="longitude" ng-disabled="use_browser_gps == 'Y'"></input>
 				</span>
 				<label class="minor-label">Radius</label>
-				<input type="text" fcsa-number="{ min: 0 }" ng-model="radius"></input>
+				<input type="text" name="radius" fcsa-number="{ min: 0 }" ng-model="radius"></input>
 				<input type="radio" ng-model="radius_units" value="km">km</input>
 				<input type="radio" ng-model="radius_units" value="mi">mi</input>
 			</div>
@@ -59,12 +59,12 @@
 					<input type="radio" ng-model="use_energy_function" value="Y" ng-change="resetEnergyFunction()">
 						Follow Sine Wave</input>
 					<label class="minor-label">Period (no. of requests)</label>
-					<input type="text" ng-model="energy_wave_period" fcsa-number="{ min: 1, maxDigits: 0 }"
+					<input type="text" name="period" ng-model="energy_wave_period" fcsa-number="{ min: 1, maxDecimals: 0 }"
 						ng-disabled="use_energy_function == 'N'" ng-change="resetEnergyFunction()"></input>
 				</span>
 				<span class="input-row-section input-row-section-right">
 					<input type="radio" ng-model="use_energy_function" value="N">Manually Enter</input>
-					<input type="text" ng-model="energy" fcsa-number="{ min: 0, max: 1 }"
+					<input type="text" name="energy" ng-model="energy" fcsa-number="{ min: 0, max: 1 }"
 						ng-disabled="use_energy_function == 'Y'"></input>
 				</span>
 			</div>
