@@ -78,10 +78,10 @@
 
 	<h1>Results</h1>
 	<div>
-		<div>
+		<div id="poetry-wrapper">
 			<span ng-repeat="line in poetry_lines" class="poetry-line">{{line}}<br /></span>
 		</div>
-		<div ng-if="spotify_embed_url">
+		<div id="spotify-wrapper" ng-if="spotify_embed_url">
 			<iframe ng-src="{{spotify_embed_url}}" frameborder="0" allowtransparency="true"></iframe>
 		</div>
 	</div>

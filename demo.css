@@ -1,6 +1,7 @@
 h1 {
 	text-transform: uppercase;
 	text-decoration: underline;
+	margin-bottom: 5px;
 }
 
 .input-row {
@@ -51,6 +52,19 @@ button {
 	font-size: 1.3em;
 	font-weight: bold;
 	font-style: italic;
+	text-transform: uppercase;
 	padding-left: 20px;
 	color: DarkGreen;
+}
+
+#poetry-wrapper {
+	padding: 20px;
+	border: 3px inset;
+}
+.poetry-line {
+	font-size: 1.5em;
+	font-family: monospace;
+}
+#spotify-wrapper {
+	margin-top: 5px;
 }
