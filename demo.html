@@ -16,12 +16,13 @@
 
 <body ng-controller="GeoPoetryController">
 
-	<div ng-show="error_message">
-		<span ]>ERROR:&nbsp;</span>
+	<div id="error-bar" ng-show="error_message">
+		<span id="error-label">ERROR:&nbsp;</span>
 		<span>{{error_message}}</span>
-		<button ng-click="error_message = ''">close</button><!-- TODO Icons -->
+		<button id="error-button" ng-click="error_message = ''">close</button><!-- TODO Icons -->
 	</div>
 
+<div id="page-wrapper">
 	<h1>Options</h1>
 	<div>
 		<form>
@@ -85,5 +86,6 @@
 			<iframe ng-src="{{spotify_embed_url}}" frameborder="0" allowtransparency="true"></iframe>
 		</div>
 	</div>
+</div>
 </body>
 </html>

@@ -1,3 +1,10 @@
+body {
+	margin: 0;
+}
+#page-wrapper {
+	margin: 8px;
+}
+
 h1 {
 	text-transform: uppercase;
 	text-decoration: underline;
@@ -67,4 +74,19 @@ button {
 }
 #spotify-wrapper {
 	margin-top: 5px;
+}
+
+#error-bar {
+	background-color: LightCoral;
+	font-weight: bold;
+	font-family: sans-serif;
+	padding: 10px;
+	border: ridge;
+	border-color: red;
+}
+#error-label {
+	color: DarkRed;
+}
+#error-button {
+	float: right;
 }
