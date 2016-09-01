@@ -1,4 +1,0 @@
-# Force HTTPS - without it, will get security errors.
-<VirtualHost *:80>
-	Redirect permanent /demo.html https://jordan-rickman.net/geo-poetry-demo/demo.html
-</VirtualHost>
