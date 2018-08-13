@@ -1,5 +1,6 @@
 var DEFAULT_ENERGY = 0.5;
-var SERVER_BASE_URL = "http://localhost:5000";
+//var SERVER_BASE_URL = "http://localhost:5000";
+var SERVER_BASE_URL = "https://jordan-rickman.net:5000";
 
 var app = angular.module('GeoPoetryApp', ['fcsa-number']);
 
